@@ -109,6 +109,7 @@ datasets/
 submission/
 output/
 .DS_Store
+**/data/
 
 # editor, os cache directory
 .vscode/
@@ -132,3 +133,6 @@ submission.csv
 
 # test 
 test.ipynb
+
+# configuration
+config.yaml
