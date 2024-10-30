@@ -4,34 +4,21 @@ import sys, os
 import json
  
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from preprocess.dataload_preprocess import preprocess_od, preprocess_stay
+from preprocess.dataload_preprocess import preprocess_od, preprocess_stay, preprocess_address, preprocess_visitor_city
 
 # paths 파일 불러오기
 with open('config.json', 'r', encoding='utf-8') as f:
     paths = json.load(f)
 
-
-# 'data/raw_data' 경로 설정
-root_dir = paths['root_dir']
-visitor_city = pd.read_csv(os.path.join(root_dir, "city_of_festival_visitors.csv"))  # 무주축제 방문객 top 18 지역들 (시군구명,od_cnts,시도명,행정동코드,위도,경도)
-address = pd.read_csv(os.path.join(root_dir, "address_with_lon_lat_final.csv"))  # 행정동코드 + 위도경도 (행정동코드,시도명,시군구명,읍면동명,동리명,위도,경도)
-mooju = set(list(address[address['시군구명'] == '무주군']['행정동코드']))  # 무주군 행정동코드
-other_city = list(address.merge(visitor_city, on=['시도명', '시군구명'])['행정동코드_x'])  # 다른 지역들 행정동코드 모음
-
-visitor_city['시도 시군구'] = visitor_city['시도명'].fillna('') + ' ' + visitor_city['시군구명'].fillna('')
-visitor_city['시도 시군구'] = visitor_city['시도 시군구'].str.strip() # 양쪽 값이 모두 null인 경우 빈 문자열 처리
-
-address['시도 시군구'] = address['시도명'].fillna('') + ' ' + address['시군구명'].fillna('')
-address['시도 시군구'] = address['시도 시군구'].str.strip() # 양쪽 값이 모두 null인 경우 빈 문자열 처리
-
-# raw_data 경로 설정
-od_dir = paths['od_dir']
-stay_dir = paths['stay_dir']
-
-
-# festival od data load
+# 축제기간의 od 데이터 로드 함수
 def load_od():
     df_od = pd.DataFrame()
+    od_dir = paths['od_dir']
+
+    address_df = load_address()
+    # 무주군의 행정동코드 추출
+    mooju = set(address_df[address_df['시군구명'] == '무주군']['행정동코드'])
+    
     for dirpath, dirnames, filenames in os.walk(od_dir):
         for filename in tqdm(filenames, desc="load od data", unit="file"):
             if filename.endswith('.csv'):
@@ -55,9 +42,10 @@ def load_od():
                     df_od = pd.concat([df_od, globals()[f'df_{mmdd_str}']])
     return df_od
 
-# festival stay data load
+# stay 데이터 로드 함수
 def load_stay():
     df_stay = pd.DataFrame()
+    stay_dir = paths['stay_dir']
     for dirpath, dirnames, filenames in os.walk(stay_dir):
         for filename in tqdm(filenames, desc="load stay data", unit="file"):
             if filename.endswith('.csv'):
@@ -80,3 +68,23 @@ def load_stay():
                     globals()[f'df_{mmdd_str}'] = filtered_data
                     df_stay = pd.concat([df_stay, globals()[f'df_{mmdd_str}']])
         return df_stay
+    
+# address 데이터 로드 함수
+def load_address():
+    address_path = os.path.join(paths['root_dir'], "address_with_lon_lat_final.csv")
+    address_df = pd.read_csv(address_path)
+
+    address_df = preprocess_address(address_df)
+     
+    return address_df
+
+
+
+# visitor_city 데이터 로드 함수
+def load_visitor_city():
+    visitor_city_path = os.path.join(paths['root_dir'], "city_of_festival_visitors.csv")
+    visitor_city_df = pd.read_csv(visitor_city_path)
+    
+    visitor_city_df = preprocess_visitor_city(visitor_city_df)
+    
+    return visitor_city_df

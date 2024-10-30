@@ -30,3 +30,20 @@ def preprocess_stay(df):
     grouped_residents = filtered_df.groupby(['hdong_cd', 'date', 'age'])['stay_cnts'].sum().reset_index()
 
     return grouped_residents
+
+
+def preprocess_address(df):
+
+    # 전처리: 시도명과 시군구명 결합 및 null 값 처리
+    df['시도 시군구'] = df['시도명'].fillna('') + ' ' + df['시군구명'].fillna('')
+    df['시도 시군구'] = df['시도 시군구'].str.strip()  # 양쪽 값이 모두 null인 경우 빈 문자열 처리
+
+    return df
+
+def preprocess_visitor_city(df):
+
+    # 전처리: 시도명과 시군구명 결합 및 null 값 처리
+    df['시도 시군구'] = df['시도명'].fillna('') + ' ' + df['시군구명'].fillna('')
+    df['시도 시군구'] = df['시도 시군구'].str.strip()  # 양쪽 값이 모두 null인 경우 빈 문자열 처리
+
+    return df
