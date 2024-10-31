@@ -66,7 +66,7 @@ def explore_the_best_shuttle_bus_path(name):
     # 탐색 범위 설정 (예: 1.1부터 1.5까지 0.1 간격으로 탐색)
     min_factor = 1.1
     max_factor = 1.5
-    step = 0.01
+    step = 0.1
 
     # 최적 경로 탐색 실행
     optimal_routes = find_optimal_routes(G, stations, min_factor, max_factor, step)

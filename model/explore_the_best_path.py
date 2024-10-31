@@ -23,7 +23,7 @@ def find_all_routes(G, start, target, visited=None, path=None):
 # 최적 경로 탐색 함수
 def find_optimal_routes(G, stations, min_threshold, max_threshold, step):
     optimal_routes = []
-    max_stops = 0
+    max_stops = 4  # 최대 정거장 수를 4로 설정
     explored_routes = set()  # 탐색된 경로를 저장할 집합
 
     # 여러 배수 값을 탐색
@@ -33,6 +33,10 @@ def find_optimal_routes(G, stations, min_threshold, max_threshold, step):
                 routes = list(find_all_routes(G, station, "전라북도 무주군"))
 
                 for route in routes:
+                    # 정류장 수 제한
+                    if len(route) != max_stops:
+                        continue
+
                     valid_route = True
                     total_distance = 0
                     total_time = 0
@@ -80,11 +84,6 @@ def find_optimal_routes(G, stations, min_threshold, max_threshold, step):
                         if route_tuple not in explored_routes:
                             explored_routes.add(route_tuple)  # 새로운 경로로 저장
 
-                            # 최대 정거장 수 확인
-                            if len(route) > max_stops:
-                                max_stops = len(route)
-                                optimal_routes = [(route, total_distance, total_time, total_weight, threshold)]
-                            elif len(route) == max_stops:
-                                optimal_routes.append((route, total_distance, total_time, total_weight, threshold))
+                            optimal_routes.append((route, total_distance, total_time, total_weight, threshold))
 
     return optimal_routes
