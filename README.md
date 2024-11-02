@@ -1,4 +1,4 @@
-# @@@대문사진 
+# @@@ 1. 대문사진 
 
 ### 2022 Bigcontest data analysis field
 
@@ -35,45 +35,50 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
 
 - We chose **Muju Firefly Festival** and came up with measures to revitalize the festival.
 
-- The Muju Firefly Festival marks the 28th anniversary of this year in Muju, Jeonbuk-do, South Korea which comes with local agricultural product experiences, cultural performances, and environmental education programs focusing on firefly observation. Through this, it is a festival that promotes the importance of nature conservation and ecological preservation and contributes to revitalizing the local economy.
+- The Muju Firefly Festival marks the 28th anniversary of this year in Muju, Jeonbuk-do, South Korea which comes with local agricultural product experiences, cultural performances, and environmental education programs focusing on firefly observation.
 
 - We analyzed the current status of the festival and presented problem definitions and solutions accordingly.
 
 ##  2. Description of the data set <a name="section2"></a>
-There are 2 types of data we used in this analysis. One is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
+### 2.1 Initial steps <a name="sec2p1"></a>
+
+This is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
+
+@@@ 2. od_df 사진 
 
 The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the national administrative unit residence population data from 2023.09.01 to 2023.10.15.
 
-### 2.1 Initial steps <a name="sec2p1"></a>
-@@@od_df 사진 
+@@@ 3. stay_df 사진
 
-@@@stay_df 사진
 
-![head](images/head.JPG)
+### 2.2 Visitor Analysis <a name="sec2p2"></a>
+#### This is the result of analyzing the number of people who visited Muju during the festival by age group.
 
-### 2.2 Descriptive statistics <a name="sec2p2"></a>
-Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report, also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the DataFrame are included in the analysis.
-
-![describeAll](images/describeAll.JPG)
+@@@ 4. 연령별 방문인원 분포 사진
 
 From this summary we can say that:
-1. The average tip (as a fraction of total bill) is about 16%.
-2. The 50th percentile is very similar to the mean, so the mean tip is a typical value in the data set.
-3. More males than females paid the bill, 157 of the 244 observations.
-4. More non-smokers than smokers paid the bill, 151 of the 244 observations.
-5. Most of the observations relate to Saturday, 87 of the 244.
-6. Most of the observations relate to dinner, 176 of the 244.
-7. Party size varied from 1 to 6, with the average size being 2.5.
+1. The percentage of visitors under 10s is the highest, followed by those in their 40s and 30s.
+2. From this, it can be inferred that a large number of family visitors have visited, accounting for a total of 78%.
+3. Among the remaining age groups, the proportion of people in their 20s is the highest, and the proportion of the remaining age groups (10s, 50s, 60s, 70s, and 80s) is less than 5%.
 
-I used pandas **iloc** to identify the highest and lowest tip rates:
-- The highest tip rate from a male smoker at dinner on Sunday in party size of 2, who left a 71% tip.
-- The lowest tip rate was also left by a male smoker at dinner in a party size of 2, but on Saturday; 3.6%.
+#### This is the result of analyzing the number of people who stayed Muju during the festival by age group.
 
-This is what a plot of tip versus total bill looks like. Here, data from each day is plotted in a different colour, but the same could also be done for any of the other categorical variables sex, smoker, and time.
+@@@ 5. 연령별 거주인원 분포사진
 
-![tipVSbill](images/tipVSbill.png)
+From this summary we can say that:
+1. The percentage of staying people 40s is the highest, followed by those in their 30s, under 10s and 30s.
+2. In the od data, few elderly people were observed, but the stay data clearly shows the ratio of those in their 50s to those in their 60s.
 
-### 2.3 Start looking at categories of diner <a name="sec2p3"></a>
+#### This is the result of distribution of festival visitors' residence.
+
+@@@ 6. 방문객 고향 사진
+
+From this summary we can say that:
+1. It can be seen that many visitors to the festival came from Jeonbuk and Chungnam/Daejeon.
+2. The average proportion of outsiders in Korea's festivals is 50%. It can be seen that the proportion of outsiders in the Muju Firefly Festival is 88% very high.
+
+
+### 2.3 Movement Analysis <a name="sec2p3"></a>
 We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. We are concerned with the fractional tip. From this part of the notebook, we can conclude that:
 1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
 2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
@@ -82,12 +87,10 @@ We can use Pandas **groupby()** to get more detailed information about tipping b
 5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
 6. The lowest average tip (as a fraction of total bill) is left at dinner on Saturdays.
 
-### 2.4 Plots to summarize some statistics <a name="sec2p4"></a>
-The following plots summarize this information graphically. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays if one is interested in the highest fractional tip. The best type of diner to serve is a female smoker. At this point of the analysis, I am not yet sure how the day and time variables are related to sex and smoker ones.
 
-![barSmokerSex](images/barSmokerSex.png)
 
-![barDayTime](images/barDayTime.png)
+
+
 
 ##  3. Regression <a name="section3"></a>
 For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. A linear model looks like:
