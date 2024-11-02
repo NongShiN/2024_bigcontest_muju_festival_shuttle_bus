@@ -79,36 +79,67 @@ From this summary we can say that:
 
 
 ### 2.3 Movement Analysis <a name="sec2p3"></a>
-We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. We are concerned with the fractional tip. From this part of the notebook, we can conclude that:
-1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
-2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
-3. The most frequently-occurring party size is 2 (156 of the total), followed by 3 (38), and 4 (37). There are only a handful of observations related to party sizes of 1, 5, and 6.
-4. The data set only contains information about dinner on Saturday (87 out of 244) and Sunday (76). There is one dinner observation on Thursday, the rest are lunch (61). Friday has lunch and dinner recorded, but overall numbers are small (19 in total).
-5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
-6. The lowest average tip (as a fraction of total bill) is left at dinner on Saturdays.
+#### This is the result of the distribution of travel distance to Muju by age group.
+
+@@@ 7. 연령대별 이동거리 차이 사진
+
+From this summary we can say that:
+1. Those under 10s and 30s and 40s visit from various distances, ranging from close to far away.
+2. 10s, 20s, 50s, and 60s usually visit at close range.
+
+#### This is the distribution of transportation used by festival visitors.
+
+@@@ 8. 방문객 이용 교통수단 사진
+
+From this summary we can say that:
+- With 39019 cases of car use, most visitors visited the festival by car.
+
+
+
+3. [Problem definitions and solutions](#section3)
+    1. [Hypothesis Setting and Cause Analysis](#sec3p1)
+    2. [Proposition of Shuttle Buses](#sec3p2)
+    3. [Shuttle Bus Timetable](#sec3p3)
+    4. [Shuttle Bus Route](#sec3p4)
+
+
+##  3. Problem definitions and solutions <a name="section3"></a>
+### 3.1 Hypothesis Setting and Cause Analysis <a name="sec3p1"></a>
+#### 3.1.1 Hypothesis Setting
+
+1.  The means of off-vehicle transportation are poor.
+2.  There are restrictions on participation according to accessibility by age group.
+
+#### 3.1.2 Cause Analysis
+#### The results of transportation and time required to travel from major cities to Muju.
+
+Departure city | Travel Route | Time Required |
+------------|---------------|-------|
+Seoul           | Seoul Station - KTX - Daejeon Station - City Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 2h 30m |
+Jeonju     | Jeonju Express Bus Terminal - Express Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 2h 30m |
+Daegu  | Daegu Station - Mugunghwa Train - Yeongdong Station - city Bus - Muju Public Bus Terminal | 2h 40m |
+Busan     | Busan Station - SRT - Daejeon Station - City Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 3h |
+Gwangju     | Gwangju Bus Terminal - Express Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 3h 20m | 
+
+From this summary we can say that:
+- From other cities to Muju festival sites, the travel route is complicated and the travel time is too long.
+
+#### This shows the contents of the festival by time and the last bus time from the festival site to each city
+
+@@@@ 사진9
+
+From this summary we can say that:
+1. Bus services are limited to certain areas and time zones.
+2. The bus schedule does not match the time of the festival program, so we cannot use it when we return home.
 
 
 
 
 
 
-##  3. Regression <a name="section3"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. A linear model looks like:
 
-**y = m x + c**
 
-where
-- y is the tip
-- x is the total bill
-- m is the slope of the line
-- c is the y intercept
-
-### 3.1 Regression in Seaborn <a name="sec3p1"></a>
-In the notebook we first use Seaborn to visualize any linear relationship between our two variables of interest using **regplot** and **lmplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will look at these categories again later on in this section. For now we can say that the best straight lines through the data points have different slopes for smokers and non-smoker. The shaded regions represent the 95% confidence levels, and they don't even overlap in this plot. 
-
-![SeabornFit](images/lmplotSmoke.png)
-
-### 3.2 Simple linear regression using polyfit <a name="sec3p2"></a>
+### 3.2 Proposition of Shuttle Buse <a name="sec3p2"></a>
 We perform a simple linear regression analysis of the data as per the week 9 lectures for this module. **numpy.polyfit** can calculate the slope and intercept of the best fit line based on least squares fitting. It doesn't directly return a metric, so we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2</sup> value as explained in the reference below about Pearson and Spearman Correlation in Python. The fitting parameters for our linear model are: 
 - slope = 0.105
 - intercept = 0.920
