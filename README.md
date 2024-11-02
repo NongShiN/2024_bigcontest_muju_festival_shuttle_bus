@@ -19,16 +19,11 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
     3. [Shuttle Bus Timetable](#sec3p3)
     4. [Shuttle Bus Route](#sec3p4)
        
-4. [About Model](#section4)
-    1. [Brief explanation](#sec4p1)
-    2. [Linear Programing](#sec4p2)
-    3. [Flow Chart](#sec4p3)
-    
-5. [Conclusion](#conclusion)
-   1. [Summary](#sec5p1)
-   2. [Expectation Effectiveness](#sec5p2)
+4. [Conclusion](#section4)
+    1. [Summary](#sec4p1)
+    2. [Expectation Effectiveness](#sec4p2)
 
-6. [References](#references)
+5. [References](#references)
 
 ## 1. Introduction <a name="introduction"></a>
 - The competition is a 2024 big contest data analysis field, and it is a competition that selects traditional markets or festivals as targets for analysis with data related to population movement provided by SKT.
@@ -174,36 +169,129 @@ Departure | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 
 ### 3.4 Shuttle Bus Route <a name="sec3p4"></a>
 #### 3.4.1 Selection of the station
-#### 3.4.1.1 Select the city that visits Muju the most during the festival
-Daejeon Line | 
-------------| 
-Sejong City |
-Yuseong-gu, Daejeon |
-Seo-gu, Daejeon |
-Daedeok-gu, Daejeon | 
-Jung-gu, Daejeon | 
-Geumsan-gun, Chungnam |
-Yeongdong-gun, Chungbuk |
+1. Select the city that visits Muju the most during the festival.
+```python
+map_filtered = pd.DataFrame()
+for region in festival_df_grouped_sido['시도명']:
+    # Calculate the sum of 'od_cnts' by 'Region' and sort by 'od_cnts'
+    region_filtered = festival_df_grouped_2[festival_df_grouped_2['시도명'] == region]
+    # Sejong city doesn't have 'City' name
+    if region == '세종특별자시치':
+        region_grouped = region_filtered.groupby('시도명')['od_cnts'].sum().reset_index()
+    else:
+        region_grouped = region_filtered.groupby('시군구명')['od_cnts'].sum().reset_index()
+    region_grouped['시도명'] = region
+    # Sort in descending order based on 'od_cnts'
+    region_grouped = region_grouped.sort_values(by='od_cnts', ascending=False)
 
-Jeonbuk Line |
----------------|
-Gunsan-si, Jeonbuk |
-Iksan-si, Jeonbuk |
-Wansan-gu, Jeonju-si, Jeonbuk |
-Deokjin-gu, Jeonju-si, Jeonbuk |
-Jinan-gun, Jeonbuk |
-Jangsu-gun, Jeonbuk |
+    map_filtered = pd.concat([map_filtered, region_grouped[region_grouped['od_cnts'] >= 500]])
+
+```
+map_filtered:
+City | # of Visitors
+------------| ------------| 
+Deokjin-gu, Jeonju-si, Jeonbuk | ㅤㅤ2834
+Seo-gu, Daejeon | ㅤㅤ1813
+Wansan-gu, Jeonju-si, Jeonbuk | ㅤㅤ1561
+Yuseong-gu, Daejeon | ㅤㅤ1379
+ㅤㅤㅤㅤㅤㅤ... | ㅤㅤ...
+Iksan-si, Jeonbuk | ㅤㅤ772
+Jinan-gun, Jeonbuk | ㅤㅤ704
+ㅤ
+   2. Give weight considering the number of visitors to the festival in the city.
+```json
+    "daejun": {
+        "nodes": [
+            "세종특별자치시",
+            "대전광역시 유성구",
+            "대전광역시 서구",
+            "대전광역시 대덕구",
+            "대전광역시 중구",
+            "충청남도 금산군",
+            "충청북도 영동군",
+            "전라북도 무주군"
+        ],
+        "weights": [1, 2, 2, 1, 1, 1, 2, 0]
+    },
+    "jeonbuk": {
+        "nodes": [
+            "전라북도 군산시",
+            "전라북도 익산시",
+            "전라북도 전주시 완산구",
+            "전라북도 전주시 덕진구",
+            "전라북도 진안군",
+            "전라북도 장수군",
+            "전라북도 무주군"
+        ],
+        "weights": [1, 1, 2, 2, 1, 2, 0]
+    }
+```
+ㅤ
+   3. Give weight considering the "percentage of age groups (20, 50, 60s)" that are difficult to travel long distances.
+```python
+def get_visitors_num(lst):
+    address = load_address()
+    sum_od_cnts_all, sum_od_cnts_age = number_of_visitors_to_Muju_by_region()
+    visitors_num = []
+    visitors_num_256 = []
+
+    for name in lst:
+        # Get the list of administrative district codes for each specified region
+        codes = address[address['시도 시군구'] == name]['행정동코드'].unique().tolist()
+        
+        # Initialize counters for total visitors and visitors in age groups 20s, 50s, and 60s
+        cnt_all = 0
+        cnt_256 = 0
+        
+        # Sum up visitors for each administrative district code in the region
+        for code in codes:
+            tmp_for_all = sum_od_cnts_all[sum_od_cnts_all['origin_hdong_cd'] == code]
+            if not tmp_for_all.empty:
+                cnt_all += tmp_for_all['od_cnts'].iloc[0]  # Total visitors from the administrative code
+            tmp_for_256 = sum_od_cnts_age[sum_od_cnts_age['origin_hdong_cd'] == code]
+            if not tmp_for_256.empty:
+                cnt_256 += tmp_for_256['od_cnts'].iloc[0]  # Total visitors from the specific age groups
+
+        visitors_num.append(int(cnt_all))
+        visitors_num_256.append(int(cnt_256))
+    
+    return visitors_num, visitors_num_256
+```
+
+```python
+def number_of_visitors_to_Muju_by_region():
+    df_od = load_od()
+    
+    # Number of visitors to Muju Festival by region
+    df_od_group = df_od.groupby(['origin_hdong_cd', 'date', 'age'])['od_cnts'].sum().reset_index()
+    df_od_all = df_od_group.groupby(['origin_hdong_cd', 'date'])['od_cnts'].sum().reset_index()  # Total visitors per day
+    sum_od_cnts_all = round(df_od_all.groupby(['origin_hdong_cd'])['od_cnts'].sum().reset_index(), 0)  # Total visitors from each region
+
+    # Number of Muju Festival visitors by region for age groups 20s, 50s, and 60s
+    df_od_age = df_od_group[df_od_group['age'].isin([2,5,6])]
+    sum_od_cnts_age = round(df_od_age.groupby('origin_hdong_cd')['od_cnts'].sum().reset_index(), 0)
+
+    return sum_od_cnts_all, sum_od_cnts_age
+```
+#### 3.4.2 Linear Programing
+@@@@@ 사진 13
+
+#### 3.4.3 Flow Chart
+@@@@ 사진 14
+#### 3.4.4 Recommended Route
+#### 3.4.4.1 Daejeon Line
+#### 3.4.4.2 Jeonbuk Line
 
 
-## 4. About Model <a name="section4"></a>
+## 4. Conclusion <a name="section4"></a>
 We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
 
-### 4.1 Brief explanation <a name="sec4p1"></a>
+### 4.1 Summary <a name="sec4p1"></a>
 The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. Below is a Seaborn pairplot for this data set.
 
 ![Pairplot](images/Pairplot.png)
 
-### 4.2 Linear Programing <a name="sec4p2"></a>
+### 4.2 Expectation Effectiveness <a name="sec4p2"></a>
 I next used the **pivot_table()** function to summarize the tip according to each of the other variables. I came across this function in Wes McKinney's data analysis book and in his "10 minutes to Pandas" video (both referenced below). So, instead of looking at the average tip for the entire data set, we can see what the average tip is for all combinations of the sex and smoker categorical variables, for example. The default aggregation function is **mean** and I also use **count** to measure sample sizes. **max()** and **min()** are used to find the biggest and smallest values returned from pivot_table.
 
 #### 4.2.1 Tip vs sex, smoker, and size
@@ -264,26 +352,7 @@ Summary of findings:
 
 
 
-
-
-
-
-## 6. Conclusion <a name="conclusion"></a>
-The main findings of this analysis are:
-1. Average tip = $2.99, minimum = $1, maximum = $10.
-2. Average total bill = $19.79, minimum = $3.07, maximum = $50.81.
-3. Average fractional tip = 0.16, minimum = 0.04, maximum = 0.71.
-4. 151 of the 244 observations concern non-smokers.
-5. 157 of the 244 observations concern males.
-6. 87 of the 244 observations relate to Saturday.
-7. 176 of the 244 observations relate to dinner.
-8. 156 of the 244 observations concern party size of two.
-9. The largest group represented in the data set is: male, non-smokers, dining with one other person at dinner on Sundays. There are 22 of them. The average tip left by this group is $2.59, very similar to the average tip for the whole data set, $2.99. 
-10. There is a linear relationship between tip and total bill: tip = 0.11 (total_bill) + 0.92
-11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount. The tip per person versus size is fit really well by a linear model. 
-12. A k-nearest neighbours classifier was used to predict time from tip, total bill and size inputs. The classifier predicted the time (lunch or dinner) correctly about 69% of the time. Considering only data from non-smokers reduced the classifier performance by a few percent.
-
-## 7. References <a name="references"></a>
+## 5. References <a name="references"></a>
 
 **General:**
 
