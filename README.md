@@ -1,4 +1,4 @@
-# @@@ 1. 대문사진 
+@@@ 1. 대문사진 
 
 ### 2022 Bigcontest data analysis field
 
@@ -10,22 +10,22 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
 
 2. [Description of the data set](#section2)
     1. [Initial steps](#sec2p1)
-    2. [Visitor Analysis](#sec2p2)
-    3. [Movement Analysis](#sec2p3)
+    2. [Visitor analysis](#sec2p2)
+    3. [Movement analysis](#sec2p3)
 
 3. [Problem definitions and solutions](#section3)
-    1. [Hypothesis Setting and Cause Analysis](#sec3p1)
-    2. [Proposition of Shuttle Buses](#sec3p2)
-    3. [Shuttle Bus Timetable](#sec3p3)
-    4. [Shuttle Bus Route](#sec3p4)
+    1. [Hypothesis setting and cause analysis](#sec3p1)
+    2. [Proposition of shuttle buses](#sec3p2)
+    3. [Shuttle bus timetable](#sec3p3)
+    4. [Shuttle bus route](#sec3p4)
        
 4. [Conclusion](#section4)
     1. [Summary](#sec4p1)
-    2. [Expectation Effectiveness](#sec4p2)
+    2. [Expectation effectiveness](#sec4p2)
 
 5. [References](#references)
 
-## 1. Introduction <a name="introduction"></a>
+# 1. Introduction <a name="introduction"></a>
 - The competition is a 2024 big contest data analysis field, and it is a competition that selects traditional markets or festivals as targets for analysis with data related to population movement provided by SKT.
 
 - We chose **Muju Firefly Festival** and came up with measures to revitalize the festival.
@@ -34,8 +34,8 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
 
 - We analyzed the current status of the festival and presented problem definitions and solutions accordingly.
 
-##  2. Description of the data set <a name="section2"></a>
-### 2.1 Initial steps <a name="sec2p1"></a>
+#  2. Description of the dataset <a name="section2"></a>
+## 2.1 Initial steps <a name="sec2p1"></a>
 
 This is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
 
@@ -46,8 +46,8 @@ The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the n
 @@@ 3. stay_df 사진
 
 
-### 2.2 Visitor Analysis <a name="sec2p2"></a>
-#### This is the result of analyzing the number of people who visited Muju during the festival by age group.
+## 2.2 Visitor analysis <a name="sec2p2"></a>
+### This is the result of analyzing the number of people who visited Muju during the festival by age group.
 
 @@@ 4. 연령별 방문인원 분포 사진
 
@@ -56,7 +56,7 @@ From this summary we can say that:
 2. From this, it can be inferred that a large number of family visitors have visited, accounting for a total of 78%.
 3. Among the remaining age groups, the proportion of people in their 20s is the highest, and the proportion of the remaining age groups (10s, 50s, 60s, 70s, and 80s) is less than 5%.
 
-#### This is the result of analyzing the number of people who stayed Muju during the festival by age group.
+### This is the result of analyzing the number of people who stayed Muju during the festival by age group.
 
 @@@ 5. 연령별 거주인원 분포사진
 
@@ -64,7 +64,7 @@ From this summary we can say that:
 1. The percentage of staying people 40s is the highest, followed by those in their 30s, under 10s and 30s.
 2. In the od data, few elderly people were observed, but the stay data clearly shows the ratio of those in their 50s to those in their 60s.
 
-#### This is the result of distribution of festival visitors' residence.
+### This is the result of distribution of festival visitors' residence.
 
 @@@ 6. 방문객 고향 사진
 
@@ -73,8 +73,8 @@ From this summary we can say that:
 2. The average proportion of outsiders in Korea's festivals is 50%. It can be seen that the proportion of outsiders in the Muju Firefly Festival is 88% very high.
 
 
-### 2.3 Movement Analysis <a name="sec2p3"></a>
-#### This is the result of the distribution of travel distance to Muju by age group.
+## 2.3 Movement analysis <a name="sec2p3"></a>
+### 2.3.1 Result of the distribution of travel distance to Muju by age group.
 
 @@@ 7. 연령대별 이동거리 차이 사진
 
@@ -82,24 +82,24 @@ From this summary we can say that:
 1. Those under 10s and 30s and 40s visit from various distances, ranging from close to far away.
 2. 10s, 20s, 50s, and 60s usually visit at close range.
 
-#### This is the distribution of transportation used by festival visitors.
+### 2.3.2 The distribution of transportation used by festival visitors.
 
 @@@ 8. 방문객 이용 교통수단 사진
 
 From this summary we can say that:
 - With 39019 cases of car use, most visitors visited the festival by car.
 
-##  3. Problem definitions and solutions <a name="section3"></a>
-### 3.1 Hypothesis Setting and Cause Analysis <a name="sec3p1"></a>
-#### 3.1.1 Hypothesis Setting
+#  3. Problem definitions and solutions <a name="section3"></a>
+## 3.1 Hypothesis setting and cause analysis <a name="sec3p1"></a>
+### 3.1.1 Hypothesis setting
 
 1.  The means of off-vehicle transportation are poor.
 2.  There are restrictions on participation according to accessibility by age group.
 
-#### 3.1.2 Cause Analysis
+### 3.1.2 Cause analysis
 #### 3.1.2.1 The results of transportation and time required to travel from major cities to Muju.
 
-Departure City | Travel Route | Time Required |
+Departure City | Travel Route | Time |
 ------------|---------------|-------|
 Seoul           | Seoul Station - KTX - Daejeon Station - City Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 2h 30m |
 Jeonju     | Jeonju Express Bus Terminal - Express Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 2h 30m |
@@ -134,14 +134,14 @@ From this survey we can say that:
 - Many participants can see that they are uncomfortable with the transportation of the festival.
 
 
-### 3.2 Proposition of Shuttle Buse <a name="sec3p2"></a>
-#### The need for a shuttle bus
+## 3.2 Proposition of shuttle bus <a name="sec3p2"></a>
+### The need for a shuttle bus
 
 @@@@ 사진10
 
 
-### 3.3 Shuttle Bus Timetable <a name="sec3p3"></a>
-#### 3.1.1 To Muju
+## 3.3 Shuttle bus rimetable <a name="sec3p3"></a>
+### 3.1.1 To Muju
 @@@@ 사진11
 
 Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
@@ -154,7 +154,7 @@ Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 20 o'clock   |🚌🚌||||||🚌|
 
 
-#### 3.1.2 To Return
+### 3.1.2 To Return
 @@@@ 사진12
 
 Departure | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
@@ -167,8 +167,8 @@ Departure | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 22 o'clock   |🚌🚌|🚌|||||🚌|
 
 
-### 3.4 Shuttle Bus Route <a name="sec3p4"></a>
-#### 3.4.1 Selection of the station
+## 3.4 Shuttle bus route <a name="sec3p4"></a>
+### 3.4.1 Selection of the station
 1. Select the city that visits Muju the most during the festival.
 ```python
 map_filtered = pd.DataFrame()
@@ -197,7 +197,8 @@ Yuseong-gu, Daejeon | ㅤㅤ1379
 ㅤㅤㅤㅤㅤㅤ... | ㅤㅤ...
 Iksan-si, Jeonbuk | ㅤㅤ772
 Jinan-gun, Jeonbuk | ㅤㅤ704
-ㅤ
+
+
    2. Give weight considering the number of visitors to the festival in the city.
 ```json
     "daejun": {
@@ -273,82 +274,43 @@ def number_of_visitors_to_Muju_by_region():
 
     return sum_od_cnts_all, sum_od_cnts_age
 ```
-#### 3.4.2 Linear Programing
+### 3.4.2 Linear Programing
 @@@@@ 사진 13
 
-#### 3.4.3 Flow Chart
+### 3.4.3 Flow Chart
 @@@@ 사진 14
-#### 3.4.4 Recommended Route
+
+### 3.4.4 Recommended Route
 #### 3.4.4.1 Daejeon Line
+
+@@@ 사진 15
+
+Rank | Travel Route | Distance | Time |
+------------|---------------|---------------|---------------|
+ㅤ1 | Seo-gu, Daejeon → Daedeok-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 61.58km | 1h 37m |
+ㅤ2 | Seo-gu, Daejeon → Yuseong-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 68.50km | 1h 45m |
+ㅤ3 | Seo-gu, Daejeon → Yuseong-gun, Daejeon → Geumsan-gun, Chungnam → Muju-gun, Jeonbuk | 83.24km | 1h 39m |
+ㅤ4 | Sejong City → Daedeok-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 83.64km | 2h 2m |
+
 #### 3.4.4.2 Jeonbuk Line
 
+@@@ 사진 16
 
-## 4. Conclusion <a name="section4"></a>
-We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
+Rank | Travel Route | Distance | Time |
+------------|---------------|---------------|---------------|
+ㅤ1 | Gunsan-si, Jeonbuk → Iksan-si, Jeonbuk → Jinan-gun, Jeonbuk → Muju-gun, Jeonbuk | 133.84km | 2h 21m |
+ㅤ2 | Gunsan-si, Jeonbuk → Deokjin-gu, Jeonju-si, Jeonbuk → Jinan-gun, Jeonbuk → Muju-gun, Jeonbuk | 120.89km | 2h 34m |
+ㅤ3 | Gunsan-si, Jeonbuk → Iksan-si, Jeonbuk → Wansan-gu, Jeonju-si, Jeonbuk → Muju-gun, Jeonbuk | 131.27km | 2h 50m |
+ㅤ4 | Gunsan-si, Jeonbuk → Iksan-si, Jeonbuk → Jangsu-gun, Jeonbuk → Muju-gun, Jeonbuk | 165.31km | 2h 37m |
 
-### 4.1 Summary <a name="sec4p1"></a>
-The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. Below is a Seaborn pairplot for this data set.
 
-![Pairplot](images/Pairplot.png)
+# 4. Conclusion <a name="section4"></a>
+  
+
+## 4.1 Summary <a name="sec4p1"></a>
+
 
 ### 4.2 Expectation Effectiveness <a name="sec4p2"></a>
-I next used the **pivot_table()** function to summarize the tip according to each of the other variables. I came across this function in Wes McKinney's data analysis book and in his "10 minutes to Pandas" video (both referenced below). So, instead of looking at the average tip for the entire data set, we can see what the average tip is for all combinations of the sex and smoker categorical variables, for example. The default aggregation function is **mean** and I also use **count** to measure sample sizes. **max()** and **min()** are used to find the biggest and smallest values returned from pivot_table.
-
-#### 4.2.1 Tip vs sex, smoker, and size
-
-The output of pivot_table for average tip summarized against these three variables looks like:
-
-![PT_SexSmokerSize](images/PT_SexSmokerSize.JPG)
-
-Using the count function with pivot_table returns:
-
-![PTcount_SexSmokerSize](images/PTcount_SexSmokerSize.JPG)
-
-From this part of the notebook we can say that:
-- The largest average tip is left by male non-smokers in a party of 6 (mean = $5.85 , count = 2).
-- The lowest average tip is left by female smokers dining alone (mean = $1.00 , count = 1).
-- The largest group is male non-smokers in a party of 2 (mean = $2.55, count = 57).
-
-#### 4.2.2 Tip vs sex, smoker, and day
-
-We then used a pivot_table to calculate averages of tip over sex, smoker and day variables. I won't include the table itself here, just the main results we are interested in, namely:
-- The largest average tip is left by male smokers on Sundays (mean = $3.52 , count = 15).
-- The lowest average tip is left by female non-smokers on Thursdays (mean =$2.46, count = 25).
-- The largest group is male non-smokers on Sundays (mean = $3.12, count = 43).
-
-#### 4.2.3 Tip vs sex, smoker, day, time and size
-
-Rather than continuing on trying to find meaningful combinations of variables to use, I finally realised that I could make a pivot table summarizing tip averages over five other variables. The table is huge and not easy to read, but the main findings are:
-- The highest average tip comes from male non-smokers at lunch on Thursday in a party of six (mean = $6.70 , count = 1).
-- The lowest average tip is left by female smokers (and non-smokers) dining alone at dinner on Saturdays (mean = $1.00 , count = 1 each).
-- The largest group is male, non-smokers, dining with one other person at dinner on Sundays (mean = $2.59, count = 22). The average tip left by this group is very similar to the average tip for the whole data set, $2.99.
-
-### 4.3 Flow Chart <a name="sec4p3"></a>
-We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases, as you would expect. 
-
-![TotalBill_size](images/TotalBill_Size.png)
-
-The tip also increases as party size increases but I did not perform any regression on that data. Instead I decided to look at the total bill or tip *per person*. For this, two new columns are added to the data set:
-- tpp or tip per person = tip / size
-- bpp or bill per person = total bill / size
-
-Pandas **groupby()** is then used to calculate the average tip or bill per person for each party size. Be aware that we don't have a lot of data for party sizes of 1, 5, or 6. Simple linear regression (using numpy.polyfit) was then performed on these average values. I wanted to see if the average bill (or tip) per person was linearly related to party size. The resulting plots and fit parameters are:
-
-![OLSbpp](images/LSQbpp.png)
-
-Slope = -0.412130, intercept = 8.475404, R<sup>2</sup> = 0.653
-
-![OLStpp](images/LSQtpp.png)
-
-Slope = -0.125348, intercept = 1.533718, R<sup>2</sup> = 0.933
-
-Summary of findings:
-- The average bill per person decreases as party size increases.
-- There is a good linear relationship (high R<sup>2</sup>) between the average bill per person and party size.
-- The average tip per person also decreases as party size increases.
-- There is a very strong linear relationship (high R<sup>2</sup>) between the average tip per person and party size.
-- In conclusion, larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
-- Alternatively, the reduction in bill and tip per person could be happening because these larger parties include children, and children's meals are usually less expensive than adult meals.
 
 
 
