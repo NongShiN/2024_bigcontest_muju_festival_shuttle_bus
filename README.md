@@ -38,17 +38,20 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
 
 - This is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
 
-![2](https://github.com/user-attachments/assets/e44e5ded-101d-41b3-854a-b168218f0764)
+<img src="https://github.com/user-attachments/assets/e44e5ded-101d-41b3-854a-b168218f0764" alt="6" width="1000"/>
+
 
 - The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the national administrative unit residence population data from 2023.09.01 to 2023.10.15.
 
-![3](https://github.com/user-attachments/assets/252f80c4-fe6f-4f4d-b855-fb3c05861e81)
+
+<img src="https://github.com/user-attachments/assets/252f80c4-fe6f-4f4d-b855-fb3c05861e81" alt="6" width="400"/>
 
 
 ## 2.2 Visitor analysis <a name="sec2p2"></a>
 ### 2.2.1 Result of analyzing the number of people who visited Muju during the festival by age group.
 
-![4](https://github.com/user-attachments/assets/e52569e5-3986-4c8a-b5b4-4abb33bd4002)
+<img src="https://github.com/user-attachments/assets/e52569e5-3986-4c8a-b5b4-4abb33bd4002" alt="6" width="500"/>
+
 
 From this summary we can say that:
 1. The percentage of visitors under 10s is the highest, followed by those in their 40s and 30s.
@@ -57,7 +60,8 @@ From this summary we can say that:
 
 ### 2.2.2 Result of analyzing the number of people who stayed Muju during the festival by age group.
 
-![5](https://github.com/user-attachments/assets/8db12ac8-a353-476e-bc65-42db7a8ffff6)
+<img src="https://github.com/user-attachments/assets/8db12ac8-a353-476e-bc65-42db7a8ffff6" alt="6" width="500"/>
+
 
 From this summary we can say that:
 1. The percentage of staying people 40s is the highest, followed by those in their 30s, under 10s and 30s.
@@ -65,7 +69,7 @@ From this summary we can say that:
 
 ### 2.2.3 Result of distribution of festival visitors' residence.
 
-![6](https://github.com/user-attachments/assets/90005650-4b72-47b4-8ba4-67fb707b6548)
+<img src="https://github.com/user-attachments/assets/90005650-4b72-47b4-8ba4-67fb707b6548" alt="6" width="600"/>
 
 From this summary we can say that:
 1. It can be seen that many visitors to the festival came from Jeonbuk and Chungnam/Daejeon.
@@ -75,7 +79,7 @@ From this summary we can say that:
 ## 2.3 Movement analysis <a name="sec2p3"></a>
 ### 2.3.1 Result of the distribution of travel distance to Muju by age group.
 
-![7](https://github.com/user-attachments/assets/2462d208-d46b-48e8-b3d2-49a5879d7f4a)
+<img src="https://github.com/user-attachments/assets/2462d208-d46b-48e8-b3d2-49a5879d7f4a" alt="6" width="500"/>
 
 From this summary we can say that:
 1. Those under 10s and 30s and 40s visit from various distances, ranging from close to far away.
@@ -83,7 +87,9 @@ From this summary we can say that:
 
 ### 2.3.2 The distribution of transportation used by festival visitors.
 
-![8](https://github.com/user-attachments/assets/95ff40ef-124d-4605-b6a5-0919d49191b5)
+<img src="https://github.com/user-attachments/assets/95ff40ef-124d-4605-b6a5-0919d49191b5" alt="6" width="500"/>
+
+
 
 From this summary we can say that:
 - With 39019 cases of car use, most visitors visited the festival by car.
@@ -100,7 +106,7 @@ From this summary we can say that:
 
 Departure | Travel Route | Time |
 ------------|---------------|-------|
-Seoul           | Seoul Station (KT) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
+Seoul           | Seoul Station (KTX) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
 Jeonju     | Jeonju Express Bus Terminal (Express Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
 Daegu  | Daegu Station (Mugunghwa Train) → Yeongdong Station (City Bus) → Muju Bus Terminal | 2h 40m |
 Busan     | Busan Station (SRT) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 3h |
@@ -111,7 +117,7 @@ From this summary we can say that:
 
 #### 3.1.2.2 This shows the contents of the festival by time and the last bus time from the festival site to each city
 
-![9](https://github.com/user-attachments/assets/0e0b0fe5-369e-47ed-a524-4ccb00366553)
+<img src="https://github.com/user-attachments/assets/0e0b0fe5-369e-47ed-a524-4ccb00366553" alt="6" width="800"/>
 
 From this summary we can say that:
 1. Bus services are limited to certain areas and time zones.
@@ -136,13 +142,12 @@ From this survey we can say that:
 ## 3.2 Proposition of shuttle bus <a name="sec3p2"></a>
 ### The need for a shuttle bus
 
-![10](https://github.com/user-attachments/assets/65fe38cf-c70a-4f3d-b382-0b4d94a7d783)
-
+<img src="https://github.com/user-attachments/assets/65fe38cf-c70a-4f3d-b382-0b4d94a7d783" alt="6" width="800"/>
 
 ## 3.3 Shuttle bus rimetable <a name="sec3p3"></a>
 ### 3.1.1 To Muju
 
-![11](https://github.com/user-attachments/assets/61cc4717-acba-4088-8a25-ed9ec87164d0)
+<img src="https://github.com/user-attachments/assets/61cc4717-acba-4088-8a25-ed9ec87164d0" alt="6" width="1000"/>
 
 Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 ------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
@@ -156,7 +161,7 @@ Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 
 ### 3.1.2 To Return
 
-![12](https://github.com/user-attachments/assets/2136989f-1ba8-4fb5-9e2d-aa73b94ad058)
+<img src="https://github.com/user-attachments/assets/2136989f-1ba8-4fb5-9e2d-aa73b94ad058" alt="6" width="1000"/>
 
 Departure | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 ------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
@@ -277,11 +282,11 @@ def number_of_visitors_to_Muju_by_region():
 ```
 ### 3.4.2 Linear Programing
 
-![13](https://github.com/user-attachments/assets/bc839c99-8357-4ad6-818d-61001801cd1e)
+<img src="https://github.com/user-attachments/assets/bc839c99-8357-4ad6-818d-61001801cd1e" alt="6" width="600"/>
 
 ### 3.4.3 Flow Chart
 
-<img src="https://github.com/user-attachments/assets/bee931c6-d9a3-4301-88dd-f6c2de8b52f6" alt="14" width="500"/>
+<img src="https://github.com/user-attachments/assets/bee931c6-d9a3-4301-88dd-f6c2de8b52f6" alt="14" width="600"/>
 
 ### 3.4.4 Recommended Route
 #### 3.4.4.1 Daejeon Line
@@ -299,7 +304,7 @@ Rank | Travel Route | Distance | Time |
 
 #### 3.4.4.2 Jeonbuk Line
 
-![16](https://github.com/user-attachments/assets/9c351b94-87bd-4f06-89de-a621f191e217)
+<img src="https://github.com/user-attachments/assets/9c351b94-87bd-4f06-89de-a621f191e217" alt="6" width="800"/>
 
 Rank | Travel Route | Distance | Time |
 ------------|---------------|---------------|---------------|
