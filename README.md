@@ -1,5 +1,4 @@
-@@@ 1. 대문사진 
-
+![1](https://github.com/user-attachments/assets/3f4fed98-7962-4996-93e7-d8b9eb0cc361)
 ### 2022 Bigcontest data analysis field
 
 Git-hub repository at:
@@ -37,36 +36,36 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
 #  2. Description of the dataset <a name="section2"></a>
 ## 2.1 Initial steps <a name="sec2p1"></a>
 
-This is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
+- This is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
 
-@@@ 2. od_df 사진 
+![2](https://github.com/user-attachments/assets/e44e5ded-101d-41b3-854a-b168218f0764)
 
-The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the national administrative unit residence population data from 2023.09.01 to 2023.10.15.
+- The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the national administrative unit residence population data from 2023.09.01 to 2023.10.15.
 
-@@@ 3. stay_df 사진
+![3](https://github.com/user-attachments/assets/252f80c4-fe6f-4f4d-b855-fb3c05861e81)
 
 
 ## 2.2 Visitor analysis <a name="sec2p2"></a>
-### This is the result of analyzing the number of people who visited Muju during the festival by age group.
+### 2.2.1 Result of analyzing the number of people who visited Muju during the festival by age group.
 
-@@@ 4. 연령별 방문인원 분포 사진
+![4](https://github.com/user-attachments/assets/e52569e5-3986-4c8a-b5b4-4abb33bd4002)
 
 From this summary we can say that:
 1. The percentage of visitors under 10s is the highest, followed by those in their 40s and 30s.
 2. From this, it can be inferred that a large number of family visitors have visited, accounting for a total of 78%.
 3. Among the remaining age groups, the proportion of people in their 20s is the highest, and the proportion of the remaining age groups (10s, 50s, 60s, 70s, and 80s) is less than 5%.
 
-### This is the result of analyzing the number of people who stayed Muju during the festival by age group.
+### 2.2.2 Result of analyzing the number of people who stayed Muju during the festival by age group.
 
-@@@ 5. 연령별 거주인원 분포사진
+![5](https://github.com/user-attachments/assets/8db12ac8-a353-476e-bc65-42db7a8ffff6)
 
 From this summary we can say that:
 1. The percentage of staying people 40s is the highest, followed by those in their 30s, under 10s and 30s.
 2. In the od data, few elderly people were observed, but the stay data clearly shows the ratio of those in their 50s to those in their 60s.
 
-### This is the result of distribution of festival visitors' residence.
+### 2.2.3 Result of distribution of festival visitors' residence.
 
-@@@ 6. 방문객 고향 사진
+![6](https://github.com/user-attachments/assets/90005650-4b72-47b4-8ba4-67fb707b6548)
 
 From this summary we can say that:
 1. It can be seen that many visitors to the festival came from Jeonbuk and Chungnam/Daejeon.
@@ -76,7 +75,7 @@ From this summary we can say that:
 ## 2.3 Movement analysis <a name="sec2p3"></a>
 ### 2.3.1 Result of the distribution of travel distance to Muju by age group.
 
-@@@ 7. 연령대별 이동거리 차이 사진
+![7](https://github.com/user-attachments/assets/2462d208-d46b-48e8-b3d2-49a5879d7f4a)
 
 From this summary we can say that:
 1. Those under 10s and 30s and 40s visit from various distances, ranging from close to far away.
@@ -84,7 +83,7 @@ From this summary we can say that:
 
 ### 2.3.2 The distribution of transportation used by festival visitors.
 
-@@@ 8. 방문객 이용 교통수단 사진
+![8](https://github.com/user-attachments/assets/95ff40ef-124d-4605-b6a5-0919d49191b5)
 
 From this summary we can say that:
 - With 39019 cases of car use, most visitors visited the festival by car.
@@ -99,20 +98,20 @@ From this summary we can say that:
 ### 3.1.2 Cause analysis
 #### 3.1.2.1 The results of transportation and time required to travel from major cities to Muju.
 
-Departure City | Travel Route | Time |
+Departure | Travel Route | Time |
 ------------|---------------|-------|
-Seoul           | Seoul Station - KTX - Daejeon Station - City Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 2h 30m |
-Jeonju     | Jeonju Express Bus Terminal - Express Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 2h 30m |
-Daegu  | Daegu Station - Mugunghwa Train - Yeongdong Station - City Bus - Muju Public Bus Terminal | 2h 40m |
-Busan     | Busan Station - SRT - Daejeon Station - City Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 3h |
-Gwangju     | Gwangju Bus Terminal - Express Bus - Daejeon Complex Terminal - Intercity Bus - Muju Public Bus Terminal | 3h 20m | 
+Seoul           | Seoul Station (KT) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
+Jeonju     | Jeonju Express Bus Terminal (Express Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
+Daegu  | Daegu Station (Mugunghwa Train) → Yeongdong Station (City Bus) → Muju Bus Terminal | 2h 40m |
+Busan     | Busan Station (SRT) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 3h |
+Gwangju     | Gwangju Bus Terminal (Express Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 3h 20m | 
 
 From this summary we can say that:
 - From other cities to Muju festival sites, the travel route is complicated and the travel time is too long.
 
 #### 3.1.2.2 This shows the contents of the festival by time and the last bus time from the festival site to each city
 
-@@@@ 사진9
+![9](https://github.com/user-attachments/assets/0e0b0fe5-369e-47ed-a524-4ccb00366553)
 
 From this summary we can say that:
 1. Bus services are limited to certain areas and time zones.
@@ -125,10 +124,10 @@ From this summary we can say that:
 #### 3.1.2.4 Improvements to the 27th Muju Firefly Festival (last year)
  Rank | Content |
 ------------|---------------|
-1           | Transportation |
-2     | The variety of festival food |
-3  | Good things to buy / Local specialties |
-4     | Event tour information |
+ㅤ1           | Transportation |
+ㅤ2     | The variety of festival food |
+ㅤ3  | Good things to buy / Local specialties |
+ㅤ4     | Event tour information |
 
 From this survey we can say that:
 - Many participants can see that they are uncomfortable with the transportation of the festival.
@@ -137,12 +136,13 @@ From this survey we can say that:
 ## 3.2 Proposition of shuttle bus <a name="sec3p2"></a>
 ### The need for a shuttle bus
 
-@@@@ 사진10
+![10](https://github.com/user-attachments/assets/65fe38cf-c70a-4f3d-b382-0b4d94a7d783)
 
 
 ## 3.3 Shuttle bus rimetable <a name="sec3p3"></a>
 ### 3.1.1 To Muju
-@@@@ 사진11
+
+![11](https://github.com/user-attachments/assets/61cc4717-acba-4088-8a25-ed9ec87164d0)
 
 Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 ------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
@@ -155,7 +155,8 @@ Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 
 
 ### 3.1.2 To Return
-@@@@ 사진12
+
+![12](https://github.com/user-attachments/assets/2136989f-1ba8-4fb5-9e2d-aa73b94ad058)
 
 Departure | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
 ------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
@@ -275,15 +276,17 @@ def number_of_visitors_to_Muju_by_region():
     return sum_od_cnts_all, sum_od_cnts_age
 ```
 ### 3.4.2 Linear Programing
-@@@@@ 사진 13
+
+![13](https://github.com/user-attachments/assets/bc839c99-8357-4ad6-818d-61001801cd1e)
 
 ### 3.4.3 Flow Chart
-@@@@ 사진 14
+
+<img src="https://github.com/user-attachments/assets/bee931c6-d9a3-4301-88dd-f6c2de8b52f6" alt="14" width="500"/>
 
 ### 3.4.4 Recommended Route
 #### 3.4.4.1 Daejeon Line
 
-@@@ 사진 15
+<img src="https://github.com/user-attachments/assets/b6939615-35cf-4055-8d98-018824cc31a2" alt="15" width="500"/>
 
 Rank | Travel Route | Distance | Time |
 ------------|---------------|---------------|---------------|
@@ -292,9 +295,11 @@ Rank | Travel Route | Distance | Time |
 ㅤ3 | Seo-gu, Daejeon → Yuseong-gun, Daejeon → Geumsan-gun, Chungnam → Muju-gun, Jeonbuk | 83.24km | 1h 39m |
 ㅤ4 | Sejong City → Daedeok-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 83.64km | 2h 2m |
 
+---------------------------------------------
+
 #### 3.4.4.2 Jeonbuk Line
 
-@@@ 사진 16
+![16](https://github.com/user-attachments/assets/9c351b94-87bd-4f06-89de-a621f191e217)
 
 Rank | Travel Route | Distance | Time |
 ------------|---------------|---------------|---------------|
@@ -305,134 +310,51 @@ Rank | Travel Route | Distance | Time |
 
 
 # 4. Conclusion <a name="section4"></a>
-  
-
 ## 4.1 Summary <a name="sec4p1"></a>
+#### 4.1.1 Analyze Muju festival and define problem: Lack of access to transportation to festival sites
+- A high percentage of outsiders
 
+- Lack of public transport infrastructure
 
-### 4.2 Expectation Effectiveness <a name="sec4p2"></a>
+- Targeting for various age groups
 
+- Lack of access to certain age groups
 
+#### 4.1.2 Solution: Propose introduction of shuttle buses connecting major cities during the festival
+- Propose a timetable through analysis of visitor data by day and hour
 
-## 5. References <a name="references"></a>
+- Propose a route through analysis of visitor data by region
 
-**General:**
+## 4.2 Expectation Effectiveness <a name="sec4p2"></a>
+#### 4.2.1 Improve transportation inconvenience
+- Improve access to festival sites.
+- Alleviate traffic congestion near the festival site.
+  
+#### 4.2.2 Increase participation rate
+- Reduced transportation costs.
+- Encourage the participation of various age groups by simplifying travel routes.
 
-- [1]  Anaconda Distribution
-https://www.anaconda.com/
+#### 4.2.3 Environmental benefits
+- Reduce carbon emissions.
+- Realize the value of **'green'**, the slogan of Muju Festival
 
-- [2] Python Software Foundation
-https://www.python.org/
+# 5. References <a name="references"></a>
 
-- [3] Project Jupyter
-https://jupyter.org/
+**Paper:**
 
-- [4] Sharing Jupyter notebooks
-https://nbviewer.jupyter.org/
+- [1]  Changsoo Kim, Hyungbin Jang. (2014). A Study on the Relations between Vistor orientation and Consumer spending in the past 3 years Muju Firefly Festival, 18(1), 1-19.
 
-- [5] seaborn: statistical data visualization
-https://seaborn.pydata.org/index.html#
+    https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001866295
 
-- [6] matplotlib: Python plotting library
-https://matplotlib.org/
+- [2] Huiseok Seo, Junghyun Yoon. (2006). A Study on the Success Factors of Regional Festivals -focusing on the Andong maskdance festival, Hampyeong butterfly festival, and Iksan Seodong festival-, 20(4), 207-228.
 
-- [7] The Tips data set from Michael Waskom
-https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
+    https://www.krila.re.kr/download/thesis/563
 
-- [8] Description of what is contained in the tips set
-https://www.kaggle.com/ranjeetjain3/seaborn-tips-data set
+- [3] Changwoo Jeon, Gunhak Lee. (2017). Optimal Routing of Free Shuttle Bus to Enhance the Travel Convenience for the Elderly: A Case of Gwanak-gu, Seoul, 6(2), 291-304.
 
-- [9] scikit-learn: Machine Learning in Python
-https://scikit-learn.org/stable/index.html
+     https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002252629
 
-- [10] statsmodels: Statistics in Python
-https://www.statsmodels.org/stable/index.html
+- [4] Eunhak Lee, Seung-young Ko, Dongkyu Kim. (2021). Optimization of Direct Bus Route using Smart Card Data. 85th Conference of the Korea Transportation Association
 
-- [11] scipy.stats : Statistics with SciPy
-https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html
+    https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10675729
 
-**Exploratory data analysis:**
-
-- [12] Exploratory Statistical Data Analysis with a Real data set using Pandas
-https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-data set-using-pandas-208007798b92
-
-- [13] How to investigate a data set with Python
-https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
-
-- [14] Data analysis with Python
-https://medium.com/@onpillow/01-investigate-tmdb-movie-data set-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
-
-- [15] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
-Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
-
-- [16] Pandas In 10 Minutes || Wes McKinney
-https://www.youtube.com/watch?v=1MGCD8SQp3k
-
-- [17] Good description of quartiles on Seaborn plots
-https://towardsdatascience.com/analyze-the-data-through-data-visualization-using-seaborn-255e1cd3948e
-
-**Regression:**
-
-- [18] Ordinary Least Squares in statsmodels
-https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
-
-- [19] Generalized Linear Models in scikit-learn
-https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
-
-- [20] How to run Linear regression in Python scikit-Learn
-https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
-
-- [21] A beginner’s guide to Linear Regression in Python with Scikit-Learn
-https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
-
-- [22] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
-https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
-
-- [23] Python and R Tips To Learn Data Science: Pearson and Spearman Correlation in Python
-https://cmdlinetips.com/2019/08/how-to-compute-pearson-and-spearman-correlation-in-python/
-
-**Classification:**
-
-- [24] K-nearest Neighbors (KNN) Classification Model
-https://www.ritchieng.com/machine-learning-k-nearest-neighbors-knn/
-
-- [25] Supervised and Unsupervised Machine Learning Algorithms
-https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/
-
-- [26] Cross-Validation
-https://www.ritchieng.com/machine-learning-cross-validation/
-
-**References directly relating to Tips:**
-
-- [27] Tips data set in PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
-https://devarea.com/python-machine-learning-example-linear-regression/#.XbbfgOj7Q2w
-
-- [28] Tips analysis using Seaborn: Visualizing statistical relationships
-https://seaborn.pydata.org/tutorial/relational.html#relational-tutorial
-
-- [29] Tips analysis using Seaborn: Plotting with categorical data
-https://seaborn.pydata.org/tutorial/categorical.html#categorical-tutorial
-
-- [30] Tips analysis using Seaborn: Visualizing linear relationships
-https://seaborn.pydata.org/tutorial/regression.html#regression-tutorial
-
-- [31] Tips analysis using Seaborn: Building structured multi-plot grids
-https://seaborn.pydata.org/tutorial/axis_grids.html#grid-tutorial
-
-- [32] STAT 503 Case Study 1: Restaurant Tipping (Author unknown)
-https://dicook.public.iastate.edu/stat503/05/cs-tips2.pdf
-
-- [33] Interactive analytics and predictions on Restaurant tips
-https://medium.com/@valentinaalto/interactive-analytics-and-predictions-on-restaurant-tips-94f21f537de8
-
-- [34] Seaborn again: Python Data Visualisation using Seaborn 
-https://grindsquare.co.za/python-data-visualisation-using-seaborn/
-
-- [35] Excerpt from the Python Data Science Handbook by Jake VanderPlas; Jupyter notebooks are available on GitHub.
-https://jakevdp.github.io/PythonDataScienceHandbook/04.14-visualization-with-seaborn.html
-
-- [36] Interactive analytics and predictions on Restaurant tips
-https://datasciencechalktalk.com/2019/11/03/interactive-analytics-and-predictions-on-restaurant-tips/
-
-- [37] atlassian.com: .gitignore
-https://www.atlassian.com/git/tutorials/saving-changes/gitignore#personal-git-ignore-rules
