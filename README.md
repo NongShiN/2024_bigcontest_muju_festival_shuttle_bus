@@ -142,7 +142,7 @@ From this survey we can say that:
 ## 3.2 Proposition of shuttle bus <a name="sec3p2"></a>
 ### The need for a shuttle bus
 
-<img src="https://github.com/user-attachments/assets/65fe38cf-c70a-4f3d-b382-0b4d94a7d783" alt="6" width="800"/>
+<img src="https://github.com/user-attachments/assets/8250e5f7-aa5f-40a9-a08c-8b6d08e7002f" alt="6" width="800"/>
 
 ## 3.3 Shuttle bus rimetable <a name="sec3p3"></a>
 ### 3.1.1 To Muju
