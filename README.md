@@ -1,5 +1,4 @@
-# @@@대문사진 
-
+![1](https://github.com/user-attachments/assets/3f4fed98-7962-4996-93e7-d8b9eb0cc361)
 ### 2022 Bigcontest data analysis field
 
 Git-hub repository at:
@@ -10,365 +9,357 @@ https://github.com/NongShiN/2024_bigcontest_muju_festival_shuttle_bus
 
 2. [Description of the data set](#section2)
     1. [Initial steps](#sec2p1)
-    2. [Visitor Analysis](#sec2p2)
-    3. [Movement Analysis](#sec2p3)
+    2. [Visitor analysis](#sec2p2)
+    3. [Movement analysis](#sec2p3)
 
 3. [Problem definitions and solutions](#section3)
-    1. [Hypothesis Setting and Cause Analysis](#sec3p1)
-    2. [Proposition of Shuttle Buses](#sec3p2)
-    3. [Shuttle Bus Timetable](#sec3p3)
-    4. [Shuttle Bus Route](#sec3p4)
+    1. [Hypothesis setting and cause analysis](#sec3p1)
+    2. [Proposition of shuttle buses](#sec3p2)
+    3. [Shuttle bus timetable](#sec3p3)
+    4. [Shuttle bus route](#sec3p4)
        
-4. [About Model](#section4)
-    1. [Brief explanation](#sec4p1)
-    2. [Linear Programing](#sec4p2)
-    3. [Flow Chart](#sec4p3)
-    
-5. [Conclusion](#conclusion)
-   1. [Summary](#sec5p1)
-   2. [Expectation Effectiveness](#sec5p2)
+4. [Conclusion](#section4)
+    1. [Summary](#sec4p1)
+    2. [Expectation effectiveness](#sec4p2)
 
-6. [References](#references)
+5. [References](#references)
 
-## 1. Introduction <a name="introduction"></a>
+# 1. Introduction <a name="introduction"></a>
 - The competition is a 2024 big contest data analysis field, and it is a competition that selects traditional markets or festivals as targets for analysis with data related to population movement provided by SKT.
 
 - We chose **Muju Firefly Festival** and came up with measures to revitalize the festival.
 
-- The Muju Firefly Festival marks the 28th anniversary of this year in Muju, Jeonbuk-do, South Korea which comes with local agricultural product experiences, cultural performances, and environmental education programs focusing on firefly observation. Through this, it is a festival that promotes the importance of nature conservation and ecological preservation and contributes to revitalizing the local economy.
+- The Muju Firefly Festival marks the 28th anniversary of this year in Muju, Jeonbuk-do, South Korea which comes with local agricultural product experiences, cultural performances, and environmental education programs focusing on firefly observation.
 
 - We analyzed the current status of the festival and presented problem definitions and solutions accordingly.
 
-##  2. Description of the data set <a name="section2"></a>
-There are 2 types of data we used in this analysis. One is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
+#  2. Description of the dataset <a name="section2"></a>
+## 2.1 Initial steps <a name="sec2p1"></a>
 
-The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the national administrative unit residence population data from 2023.09.01 to 2023.10.15.
+- This is "od_yyyymmdd_1.csv" data (hereinafter, od data), which is OD data between administrative periods from 2023.9.1 to 2023.10.15. 
 
-### 2.1 Initial steps <a name="sec2p1"></a>
-@@@od_df 사진 
+<img src="https://github.com/user-attachments/assets/e44e5ded-101d-41b3-854a-b168218f0764" alt="6" width="1000"/>
 
-@@@stay_df 사진
 
-![head](images/head.JPG)
+- The other is "stay_yyyymmdd_1.csv" data (hereinafter, stay data), which is the national administrative unit residence population data from 2023.09.01 to 2023.10.15.
 
-### 2.2 Descriptive statistics <a name="sec2p2"></a>
-Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report, also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the DataFrame are included in the analysis.
 
-![describeAll](images/describeAll.JPG)
+<img src="https://github.com/user-attachments/assets/252f80c4-fe6f-4f4d-b855-fb3c05861e81" alt="6" width="400"/>
+
+
+## 2.2 Visitor analysis <a name="sec2p2"></a>
+### 2.2.1 Result of analyzing the number of people who visited Muju during the festival by age group.
+
+<img src="https://github.com/user-attachments/assets/e52569e5-3986-4c8a-b5b4-4abb33bd4002" alt="6" width="500"/>
+
 
 From this summary we can say that:
-1. The average tip (as a fraction of total bill) is about 16%.
-2. The 50th percentile is very similar to the mean, so the mean tip is a typical value in the data set.
-3. More males than females paid the bill, 157 of the 244 observations.
-4. More non-smokers than smokers paid the bill, 151 of the 244 observations.
-5. Most of the observations relate to Saturday, 87 of the 244.
-6. Most of the observations relate to dinner, 176 of the 244.
-7. Party size varied from 1 to 6, with the average size being 2.5.
+1. The percentage of visitors under 10s is the highest, followed by those in their 40s and 30s.
+2. From this, it can be inferred that a large number of family visitors have visited, accounting for a total of 78%.
+3. Among the remaining age groups, the proportion of people in their 20s is the highest, and the proportion of the remaining age groups (10s, 50s, 60s, 70s, and 80s) is less than 5%.
 
-I used pandas **iloc** to identify the highest and lowest tip rates:
-- The highest tip rate from a male smoker at dinner on Sunday in party size of 2, who left a 71% tip.
-- The lowest tip rate was also left by a male smoker at dinner in a party size of 2, but on Saturday; 3.6%.
+### 2.2.2 Result of analyzing the number of people who stayed Muju during the festival by age group.
 
-This is what a plot of tip versus total bill looks like. Here, data from each day is plotted in a different colour, but the same could also be done for any of the other categorical variables sex, smoker, and time.
+<img src="https://github.com/user-attachments/assets/8db12ac8-a353-476e-bc65-42db7a8ffff6" alt="6" width="500"/>
 
-![tipVSbill](images/tipVSbill.png)
 
-### 2.3 Start looking at categories of diner <a name="sec2p3"></a>
-We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. We are concerned with the fractional tip. From this part of the notebook, we can conclude that:
-1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
-2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
-3. The most frequently-occurring party size is 2 (156 of the total), followed by 3 (38), and 4 (37). There are only a handful of observations related to party sizes of 1, 5, and 6.
-4. The data set only contains information about dinner on Saturday (87 out of 244) and Sunday (76). There is one dinner observation on Thursday, the rest are lunch (61). Friday has lunch and dinner recorded, but overall numbers are small (19 in total).
-5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
-6. The lowest average tip (as a fraction of total bill) is left at dinner on Saturdays.
+From this summary we can say that:
+1. The percentage of staying people 40s is the highest, followed by those in their 30s, under 10s and 30s.
+2. In the od data, few elderly people were observed, but the stay data clearly shows the ratio of those in their 50s to those in their 60s.
 
-### 2.4 Plots to summarize some statistics <a name="sec2p4"></a>
-The following plots summarize this information graphically. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays if one is interested in the highest fractional tip. The best type of diner to serve is a female smoker. At this point of the analysis, I am not yet sure how the day and time variables are related to sex and smoker ones.
+### 2.2.3 Result of distribution of festival visitors' residence.
 
-![barSmokerSex](images/barSmokerSex.png)
+<img src="https://github.com/user-attachments/assets/90005650-4b72-47b4-8ba4-67fb707b6548" alt="6" width="600"/>
 
-![barDayTime](images/barDayTime.png)
+From this summary we can say that:
+1. It can be seen that many visitors to the festival came from Jeonbuk and Chungnam/Daejeon.
+2. The average proportion of outsiders in Korea's festivals is 50%. It can be seen that the proportion of outsiders in the Muju Firefly Festival is 88% very high.
 
-##  3. Regression <a name="section3"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. A linear model looks like:
 
-**y = m x + c**
+## 2.3 Movement analysis <a name="sec2p3"></a>
+### 2.3.1 Result of the distribution of travel distance to Muju by age group.
 
-where
-- y is the tip
-- x is the total bill
-- m is the slope of the line
-- c is the y intercept
+<img src="https://github.com/user-attachments/assets/2462d208-d46b-48e8-b3d2-49a5879d7f4a" alt="6" width="500"/>
 
-### 3.1 Regression in Seaborn <a name="sec3p1"></a>
-In the notebook we first use Seaborn to visualize any linear relationship between our two variables of interest using **regplot** and **lmplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will look at these categories again later on in this section. For now we can say that the best straight lines through the data points have different slopes for smokers and non-smoker. The shaded regions represent the 95% confidence levels, and they don't even overlap in this plot. 
+From this summary we can say that:
+1. Those under 10s and 30s and 40s visit from various distances, ranging from close to far away.
+2. 10s, 20s, 50s, and 60s usually visit at close range.
 
-![SeabornFit](images/lmplotSmoke.png)
+### 2.3.2 The distribution of transportation used by festival visitors.
 
-### 3.2 Simple linear regression using polyfit <a name="sec3p2"></a>
-We perform a simple linear regression analysis of the data as per the week 9 lectures for this module. **numpy.polyfit** can calculate the slope and intercept of the best fit line based on least squares fitting. It doesn't directly return a metric, so we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2</sup> value as explained in the reference below about Pearson and Spearman Correlation in Python. The fitting parameters for our linear model are: 
-- slope = 0.105
-- intercept = 0.920
-- R<sup>2</sup> = 0.457
+<img src="https://github.com/user-attachments/assets/95ff40ef-124d-4605-b6a5-0919d49191b5" alt="6" width="500"/>
 
-So, a linear relationship does exist between the total bill and the tip amount, but in my opinion, it's not a very strong one. When dealing with scientific data in the past, I would be looking for much higher R<sup>2</sup> values. I'll discuss that more below. The best slope here corresponds to approximately a 10% tip, and note that the intercept is not zero; suggesting that the minimum tip is about $1. One can see lines of data points representing tip of $1, $2 and $3. This suggests that lots of diners round their tips to the nearest $. 
 
-![SimpleLinReg](images/LSQalldata.png)
 
-### 3.3 Regression with statsmodels <a name="sec3p3"></a>
-We then move on to using two packages, statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit: for each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are only interested in the slope, intercept, and value of R<sup>2</sup>.
+From this summary we can say that:
+- With 39019 cases of car use, most visitors visited the festival by car.
 
-### 3.4 Regression with scikit-learn <a name="sec3p4"></a>
-Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn.  This package is useful for making predictions using the data set, something we may get on to later. We use the scikit-learn LinearRegression model which performs OLS fitting.
+#  3. Problem definitions and solutions <a name="section3"></a>
+## 3.1 Hypothesis setting and cause analysis <a name="sec3p1"></a>
+### 3.1.1 Hypothesis setting
 
-In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab reference below discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips data set falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better value of R<sup>2</sup> but wouldn't be a sensible way to model how tip amount varies with total bill. 
+1.  The means of off-vehicle transportation are poor.
+2.  There are restrictions on participation according to accessibility by age group.
 
-To conclude this part of the analysis: the tip does depend linearly on the total bill in this data set. The slope of the best fit line is 0.105, the y intercept is 0.920, and R<sup>2</sup> is 0.457.
+### 3.1.2 Cause analysis
+#### 3.1.2.1 The results of transportation and time required to travel from major cities to Muju.
 
-### 3.5 Linear regression on various subsets of the data <a name="sec3p5"></a>
-The results of regression on all of the data, and on subsets of it, are presented in the table below.
+Departure | Travel Route | Time |
+------------|---------------|-------|
+Seoul           | Seoul Station (KTX) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
+Jeonju     | Jeonju Express Bus Terminal (Express Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 2h 30m |
+Daegu  | Daegu Station (Mugunghwa Train) → Yeongdong Station (City Bus) → Muju Bus Terminal | 2h 40m |
+Busan     | Busan Station (SRT) → Daejeon Station (City Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 3h |
+Gwangju     | Gwangju Bus Terminal (Express Bus) → Daejeon Complex Terminal (Intercity Bus) → Muju Bus Terminal | 3h 20m | 
 
-Line fit    | R<sup>2</sup> | slope | intercept
-------------|---------------|-------|----------
-All           | 0.457     | 0.105 | 0.920     |
-size = 2      | 0.232     | 0.078 | 1.292     |
-size = 2,3,4  | 0.438     | 0.105 | 0.920     |
-F smokers     | 0.266     | 0.068 | 1.701     |
-M smokers     | 0.232     | 0.073 | 1.425     |
-F non-smokers | 0.686     | 0.128 | 0.452     |
-M non-smokers | 0.670     | 0.140 | 0.348     |
-day = Thur    | 0.660     | 0.128 | 0.512     |
-day = Fri     | 0.597     | 0.095 | 1.109     |
-day = Sat     | 0.495     | 0.121 | 0.519     |
-day = Sun     | 0.251     | 0.070 | 1.753     |
+From this summary we can say that:
+- From other cities to Muju festival sites, the travel route is complicated and the travel time is too long.
 
-What can we conclude from this? If higher R<sup>2</sup> indicates better a fit, then the data is fitted well by a linear model for non-smokers (regardless of sex) and for day = Thursday; these subsets result in the largest R<sup>2</sup> values and also high slopes. Maybe considering data from non-smokers on Thursday would produce the most reliable predictions of tip given total bill?
+#### 3.1.2.2 This shows the contents of the festival by time and the last bus time from the festival site to each city
 
-**Tip predictions:**
+<img src="https://github.com/user-attachments/assets/0e0b0fe5-369e-47ed-a524-4ccb00366553" alt="6" width="800"/>
 
-We can use our linear regression parameters to predict the tip amount for any total bill, say a bill of $100. 
-- Using all of the data, we predict a tip of $11.42 for this total bill amount;
-- For male non-smokers only, we predict a tip of $14.32;
-- Considering data from Thursday alone, we predict a tip of $13.29;
-- In contrast, Sunday data predicts just $8.77 as a tip.
+From this summary we can say that:
+1. Bus services are limited to certain areas and time zones.
+2. The bus schedule does not match the time of the festival program, so we cannot use it when we return home.
 
-As the average total bill in this restaurant is just less than $20 and the maximum is about $50, it's unlikely that anyone would ever spend $100 here in the first place!
+#### 3.1.2.3 There are restrictions on participation in festivals due to differences in accessibility by age groups.
+1. In the case of 20s, the vehicle possession is low, so the dependence on public transportation is high, but the participation rate of the festival is low due to the weak public transportation situation to the festival venue.
+2. In the case of people in their 50s, the degree of interest in the festival can be confirmed by looking at the distribution of the number of people staying, but participation restrictions are expected due to fatigue caused by long-distance travel.
 
-## 4. Relationships between variables <a name="section4"></a>
-We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
+#### 3.1.2.4 Improvements to the 27th Muju Firefly Festival (last year)
+ Rank | Content |
+------------|---------------|
+ㅤ1           | Transportation |
+ㅤ2     | The variety of festival food |
+ㅤ3  | Good things to buy / Local specialties |
+ㅤ4     | Event tour information |
+
+From this survey we can say that:
+- Many participants can see that they are uncomfortable with the transportation of the festival.
+
+
+## 3.2 Proposition of shuttle bus <a name="sec3p2"></a>
+### The need for a shuttle bus
+
+<img src="https://github.com/user-attachments/assets/8250e5f7-aa5f-40a9-a08c-8b6d08e7002f" alt="6" width="800"/>
+
+## 3.3 Shuttle bus rimetable <a name="sec3p3"></a>
+### 3.1.1 To Muju
+
+<img src="https://github.com/user-attachments/assets/61cc4717-acba-4088-8a25-ed9ec87164d0" alt="6" width="1000"/>
+
+Arrival | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
+------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
+10 o'clock   |ㅤㅤㅤㅤ|🚌ㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|
+12 o'clock   |🚌🚌|🚌🚌|🚌|||||
+14 o'clock   |🚌🚌|🚌||||||
+16 o'clock   |🚌🚌🚌|🚌|||||🚌|
+18 o'clock   |🚌🚌🚌|🚌🚌|🚌|🚌|🚌|🚌|🚌🚌|
+20 o'clock   |🚌🚌||||||🚌|
+
+
+### 3.1.2 To Return
+
+<img src="https://github.com/user-attachments/assets/2136989f-1ba8-4fb5-9e2d-aa73b94ad058" alt="6" width="1000"/>
+
+Departure | Sat | Sun | Mon | Tue | Wed | Thu | Fri |
+------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|
+12 o'clock   ||||||||
+14 o'clock   ||🚌||||||
+16 o'clock   |ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|ㅤㅤㅤㅤ|   
+18 o'clock   |🚌|🚌🚌||||||
+20 o'clock   |🚌🚌🚌|🚌🚌🚌|🚌|🚌|🚌|🚌|🚌🚌🚌|
+22 o'clock   |🚌🚌|🚌|||||🚌|
+
+
+## 3.4 Shuttle bus route <a name="sec3p4"></a>
+### 3.4.1 Selection of the station
+1. Select the city that visits Muju the most during the festival.
+```python
+map_filtered = pd.DataFrame()
+for region in festival_df_grouped_sido['시도명']:
+    # Calculate the sum of 'od_cnts' by 'Region' and sort by 'od_cnts'
+    region_filtered = festival_df_grouped_2[festival_df_grouped_2['시도명'] == region]
+    # Sejong city doesn't have 'City' name
+    if region == '세종특별자시치':
+        region_grouped = region_filtered.groupby('시도명')['od_cnts'].sum().reset_index()
+    else:
+        region_grouped = region_filtered.groupby('시군구명')['od_cnts'].sum().reset_index()
+    region_grouped['시도명'] = region
+    # Sort in descending order based on 'od_cnts'
+    region_grouped = region_grouped.sort_values(by='od_cnts', ascending=False)
+
+    map_filtered = pd.concat([map_filtered, region_grouped[region_grouped['od_cnts'] >= 500]])
+
+```
+map_filtered:
+City | # of Visitors
+------------| ------------| 
+Deokjin-gu, Jeonju-si, Jeonbuk | ㅤㅤ2834
+Seo-gu, Daejeon | ㅤㅤ1813
+Wansan-gu, Jeonju-si, Jeonbuk | ㅤㅤ1561
+Yuseong-gu, Daejeon | ㅤㅤ1379
+ㅤㅤㅤㅤㅤㅤ... | ㅤㅤ...
+Iksan-si, Jeonbuk | ㅤㅤ772
+Jinan-gun, Jeonbuk | ㅤㅤ704
+
+
+   2. Give weight considering the number of visitors to the festival in the city.
+```json
+    "daejun": {
+        "nodes": [
+            "세종특별자치시",
+            "대전광역시 유성구",
+            "대전광역시 서구",
+            "대전광역시 대덕구",
+            "대전광역시 중구",
+            "충청남도 금산군",
+            "충청북도 영동군",
+            "전라북도 무주군"
+        ],
+        "weights": [1, 2, 2, 1, 1, 1, 2, 0]
+    },
+    "jeonbuk": {
+        "nodes": [
+            "전라북도 군산시",
+            "전라북도 익산시",
+            "전라북도 전주시 완산구",
+            "전라북도 전주시 덕진구",
+            "전라북도 진안군",
+            "전라북도 장수군",
+            "전라북도 무주군"
+        ],
+        "weights": [1, 1, 2, 2, 1, 2, 0]
+    }
+```
+ㅤ
+   3. Give weight considering the "percentage of age groups (20, 50, 60s)" that are difficult to travel long distances.
+```python
+def get_visitors_num(lst):
+    address = load_address()
+    sum_od_cnts_all, sum_od_cnts_age = number_of_visitors_to_Muju_by_region()
+    visitors_num = []
+    visitors_num_256 = []
+
+    for name in lst:
+        # Get the list of administrative district codes for each specified region
+        codes = address[address['시도 시군구'] == name]['행정동코드'].unique().tolist()
+        
+        # Initialize counters for total visitors and visitors in age groups 20s, 50s, and 60s
+        cnt_all = 0
+        cnt_256 = 0
+        
+        # Sum up visitors for each administrative district code in the region
+        for code in codes:
+            tmp_for_all = sum_od_cnts_all[sum_od_cnts_all['origin_hdong_cd'] == code]
+            if not tmp_for_all.empty:
+                cnt_all += tmp_for_all['od_cnts'].iloc[0]  # Total visitors from the administrative code
+            tmp_for_256 = sum_od_cnts_age[sum_od_cnts_age['origin_hdong_cd'] == code]
+            if not tmp_for_256.empty:
+                cnt_256 += tmp_for_256['od_cnts'].iloc[0]  # Total visitors from the specific age groups
+
+        visitors_num.append(int(cnt_all))
+        visitors_num_256.append(int(cnt_256))
+    
+    return visitors_num, visitors_num_256
+```
+
+```python
+def number_of_visitors_to_Muju_by_region():
+    df_od = load_od()
+    
+    # Number of visitors to Muju Festival by region
+    df_od_group = df_od.groupby(['origin_hdong_cd', 'date', 'age'])['od_cnts'].sum().reset_index()
+    df_od_all = df_od_group.groupby(['origin_hdong_cd', 'date'])['od_cnts'].sum().reset_index()  # Total visitors per day
+    sum_od_cnts_all = round(df_od_all.groupby(['origin_hdong_cd'])['od_cnts'].sum().reset_index(), 0)  # Total visitors from each region
+
+    # Number of Muju Festival visitors by region for age groups 20s, 50s, and 60s
+    df_od_age = df_od_group[df_od_group['age'].isin([2,5,6])]
+    sum_od_cnts_age = round(df_od_age.groupby('origin_hdong_cd')['od_cnts'].sum().reset_index(), 0)
+
+    return sum_od_cnts_all, sum_od_cnts_age
+```
+### 3.4.2 Linear Programing
+
+<img src="https://github.com/user-attachments/assets/bc839c99-8357-4ad6-818d-61001801cd1e" alt="6" width="600"/>
+
+### 3.4.3 Flow Chart
+
+<img src="https://github.com/user-attachments/assets/bee931c6-d9a3-4301-88dd-f6c2de8b52f6" alt="14" width="600"/>
+
+### 3.4.4 Recommended Route
+#### 3.4.4.1 Daejeon Line
+
+<img src="https://github.com/user-attachments/assets/b6939615-35cf-4055-8d98-018824cc31a2" alt="15" width="500"/>
+
+Rank | Travel Route | Distance | Time |
+------------|---------------|---------------|---------------|
+ㅤ1 | Seo-gu, Daejeon → Daedeok-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 61.58km | 1h 37m |
+ㅤ2 | Seo-gu, Daejeon → Yuseong-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 68.50km | 1h 45m |
+ㅤ3 | Seo-gu, Daejeon → Yuseong-gun, Daejeon → Geumsan-gun, Chungnam → Muju-gun, Jeonbuk | 83.24km | 1h 39m |
+ㅤ4 | Sejong City → Daedeok-gu, Daejeon → Jung-gu, Daejeon → Muju-gun, Jeonbuk | 83.64km | 2h 2m |
+
+---------------------------------------------
+
+#### 3.4.4.2 Jeonbuk Line
+
+<img src="https://github.com/user-attachments/assets/9c351b94-87bd-4f06-89de-a621f191e217" alt="6" width="800"/>
+
+Rank | Travel Route | Distance | Time |
+------------|---------------|---------------|---------------|
+ㅤ1 | Gunsan-si, Jeonbuk → Iksan-si, Jeonbuk → Jinan-gun, Jeonbuk → Muju-gun, Jeonbuk | 133.84km | 2h 21m |
+ㅤ2 | Gunsan-si, Jeonbuk → Deokjin-gu, Jeonju-si, Jeonbuk → Jinan-gun, Jeonbuk → Muju-gun, Jeonbuk | 120.89km | 2h 34m |
+ㅤ3 | Gunsan-si, Jeonbuk → Iksan-si, Jeonbuk → Wansan-gu, Jeonju-si, Jeonbuk → Muju-gun, Jeonbuk | 131.27km | 2h 50m |
+ㅤ4 | Gunsan-si, Jeonbuk → Iksan-si, Jeonbuk → Jangsu-gun, Jeonbuk → Muju-gun, Jeonbuk | 165.31km | 2h 37m |
+
+
+# 4. Conclusion <a name="section4"></a>
+## 4.1 Summary <a name="sec4p1"></a>
+#### 4.1.1 Analyze Muju festival and define problem: Lack of access to transportation to festival sites
+- A high percentage of outsiders
+
+- Lack of public transport infrastructure
+
+- Targeting for various age groups
+
+- Lack of access to certain age groups
+
+#### 4.1.2 Solution: Propose introduction of shuttle buses connecting major cities during the festival
+- Propose a timetable through analysis of visitor data by day and hour
+
+- Propose a route through analysis of visitor data by region
+
+## 4.2 Expectation Effectiveness <a name="sec4p2"></a>
+#### 4.2.1 Improve transportation inconvenience
+- Improve access to festival sites.
+- Alleviate traffic congestion near the festival site.
+  
+#### 4.2.2 Increase participation rate
+- Reduced transportation costs.
+- Encourage the participation of various age groups by simplifying travel routes.
+
+#### 4.2.3 Environmental benefits
+- Reduce carbon emissions.
+- Realize the value of **'green'**, the slogan of Muju Festival
+
+# 5. References <a name="references"></a>
+
+**Paper:**
+
+- [1]  Changsoo Kim, Hyungbin Jang. (2014). A Study on the Relations between Vistor orientation and Consumer spending in the past 3 years Muju Firefly Festival, 18(1), 1-19.
+
+    https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001866295
+
+- [2] Huiseok Seo, Junghyun Yoon. (2006). A Study on the Success Factors of Regional Festivals -focusing on the Andong maskdance festival, Hampyeong butterfly festival, and Iksan Seodong festival-, 20(4), 207-228.
+
+    https://www.krila.re.kr/download/thesis/563
+
+- [3] Changwoo Jeon, Gunhak Lee. (2017). Optimal Routing of Free Shuttle Bus to Enhance the Travel Convenience for the Elderly: A Case of Gwanak-gu, Seoul, 6(2), 291-304.
+
+     https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002252629
+
+- [4] Eunhak Lee, Seung-young Ko, Dongkyu Kim. (2021). Optimization of Direct Bus Route using Smart Card Data. 85th Conference of the Korea Transportation Association
+
+    https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE10675729
 
-### 4.1 Visualize relationships between numerical variables with pairplot <a name="sec4p1"></a>
-The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. Below is a Seaborn pairplot for this data set.
-
-![Pairplot](images/Pairplot.png)
-
-### 4.2 Investigate relationships between tip amount and the other variables <a name="sec4p2"></a>
-I next used the **pivot_table()** function to summarize the tip according to each of the other variables. I came across this function in Wes McKinney's data analysis book and in his "10 minutes to Pandas" video (both referenced below). So, instead of looking at the average tip for the entire data set, we can see what the average tip is for all combinations of the sex and smoker categorical variables, for example. The default aggregation function is **mean** and I also use **count** to measure sample sizes. **max()** and **min()** are used to find the biggest and smallest values returned from pivot_table.
-
-#### 4.2.1 Tip vs sex, smoker, and size
-
-The output of pivot_table for average tip summarized against these three variables looks like:
-
-![PT_SexSmokerSize](images/PT_SexSmokerSize.JPG)
-
-Using the count function with pivot_table returns:
-
-![PTcount_SexSmokerSize](images/PTcount_SexSmokerSize.JPG)
-
-From this part of the notebook we can say that:
-- The largest average tip is left by male non-smokers in a party of 6 (mean = $5.85 , count = 2).
-- The lowest average tip is left by female smokers dining alone (mean = $1.00 , count = 1).
-- The largest group is male non-smokers in a party of 2 (mean = $2.55, count = 57).
-
-#### 4.2.2 Tip vs sex, smoker, and day
-
-We then used a pivot_table to calculate averages of tip over sex, smoker and day variables. I won't include the table itself here, just the main results we are interested in, namely:
-- The largest average tip is left by male smokers on Sundays (mean = $3.52 , count = 15).
-- The lowest average tip is left by female non-smokers on Thursdays (mean =$2.46, count = 25).
-- The largest group is male non-smokers on Sundays (mean = $3.12, count = 43).
-
-#### 4.2.3 Tip vs sex, smoker, day, time and size
-
-Rather than continuing on trying to find meaningful combinations of variables to use, I finally realised that I could make a pivot table summarizing tip averages over five other variables. The table is huge and not easy to read, but the main findings are:
-- The highest average tip comes from male non-smokers at lunch on Thursday in a party of six (mean = $6.70 , count = 1).
-- The lowest average tip is left by female smokers (and non-smokers) dining alone at dinner on Saturdays (mean = $1.00 , count = 1 each).
-- The largest group is male, non-smokers, dining with one other person at dinner on Sundays (mean = $2.59, count = 22). The average tip left by this group is very similar to the average tip for the whole data set, $2.99.
-
-### 4.3 Does the amount spent depend on party size? <a name="sec4p3"></a>
-We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases, as you would expect. 
-
-![TotalBill_size](images/TotalBill_Size.png)
-
-The tip also increases as party size increases but I did not perform any regression on that data. Instead I decided to look at the total bill or tip *per person*. For this, two new columns are added to the data set:
-- tpp or tip per person = tip / size
-- bpp or bill per person = total bill / size
-
-Pandas **groupby()** is then used to calculate the average tip or bill per person for each party size. Be aware that we don't have a lot of data for party sizes of 1, 5, or 6. Simple linear regression (using numpy.polyfit) was then performed on these average values. I wanted to see if the average bill (or tip) per person was linearly related to party size. The resulting plots and fit parameters are:
-
-![OLSbpp](images/LSQbpp.png)
-
-Slope = -0.412130, intercept = 8.475404, R<sup>2</sup> = 0.653
-
-![OLStpp](images/LSQtpp.png)
-
-Slope = -0.125348, intercept = 1.533718, R<sup>2</sup> = 0.933
-
-Summary of findings:
-- The average bill per person decreases as party size increases.
-- There is a good linear relationship (high R<sup>2</sup>) between the average bill per person and party size.
-- The average tip per person also decreases as party size increases.
-- There is a very strong linear relationship (high R<sup>2</sup>) between the average tip per person and party size.
-- In conclusion, larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
-- Alternatively, the reduction in bill and tip per person could be happening because these larger parties include children, and children's meals are usually less expensive than adult meals.
-
-### 4.4 Classification <a name="sec4p4"></a>
-The last thing we will do is see if we can use any of the numerical variables to predict some of the categorical ones. This is called classification, as we are attempting to predict the value of a discrete categorical variable like sex, smoker, day or time for this particular data set. The categorical variables correspond to classes; we wish to predict, for example, the value of the time class - is it lunch or dinner? For this part of the notebook we use scikit-learn, a machine learning package for Python. 
-
-### K-nearest neighbours (knn) classification
-The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn documentation states, "Classification is computed from a simple majority vote of the nearest neighbours of each point: a query point is assigned the data class which has the most representatives within the nearest neighbours of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations from the data set. The testing data consists of the remaining observations. Performance of the classifier is quantified by measuring how many of the outputs in the testing data it predicts correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner. The classification is performed using the full data set and also again for a subset of the data set that includes only non-smokers.
-- The knn classifier for 5 nearest neighbours has a 69% success rate at predicting time over 100 runs. It's much better than just guessing.
-- Considering only non-smokers reduces the performance slightly, to 65%.
-- The actual numbers change a little each time the notebook is run, but the full data set has always performed better than the subset.
-
-## 5. Work done by other people on the Tips data set <a name="section5"></a>
-The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. These and some other examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. 
-
-I found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
-
-## 6. Conclusion <a name="conclusion"></a>
-The main findings of this analysis are:
-1. Average tip = $2.99, minimum = $1, maximum = $10.
-2. Average total bill = $19.79, minimum = $3.07, maximum = $50.81.
-3. Average fractional tip = 0.16, minimum = 0.04, maximum = 0.71.
-4. 151 of the 244 observations concern non-smokers.
-5. 157 of the 244 observations concern males.
-6. 87 of the 244 observations relate to Saturday.
-7. 176 of the 244 observations relate to dinner.
-8. 156 of the 244 observations concern party size of two.
-9. The largest group represented in the data set is: male, non-smokers, dining with one other person at dinner on Sundays. There are 22 of them. The average tip left by this group is $2.59, very similar to the average tip for the whole data set, $2.99. 
-10. There is a linear relationship between tip and total bill: tip = 0.11 (total_bill) + 0.92
-11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount. The tip per person versus size is fit really well by a linear model. 
-12. A k-nearest neighbours classifier was used to predict time from tip, total bill and size inputs. The classifier predicted the time (lunch or dinner) correctly about 69% of the time. Considering only data from non-smokers reduced the classifier performance by a few percent.
-
-## 7. References <a name="references"></a>
-
-**General:**
-
-- [1]  Anaconda Distribution
-https://www.anaconda.com/
-
-- [2] Python Software Foundation
-https://www.python.org/
-
-- [3] Project Jupyter
-https://jupyter.org/
-
-- [4] Sharing Jupyter notebooks
-https://nbviewer.jupyter.org/
-
-- [5] seaborn: statistical data visualization
-https://seaborn.pydata.org/index.html#
-
-- [6] matplotlib: Python plotting library
-https://matplotlib.org/
-
-- [7] The Tips data set from Michael Waskom
-https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
-
-- [8] Description of what is contained in the tips set
-https://www.kaggle.com/ranjeetjain3/seaborn-tips-data set
-
-- [9] scikit-learn: Machine Learning in Python
-https://scikit-learn.org/stable/index.html
-
-- [10] statsmodels: Statistics in Python
-https://www.statsmodels.org/stable/index.html
-
-- [11] scipy.stats : Statistics with SciPy
-https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html
-
-**Exploratory data analysis:**
-
-- [12] Exploratory Statistical Data Analysis with a Real data set using Pandas
-https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-data set-using-pandas-208007798b92
-
-- [13] How to investigate a data set with Python
-https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
-
-- [14] Data analysis with Python
-https://medium.com/@onpillow/01-investigate-tmdb-movie-data set-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
-
-- [15] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
-Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
-
-- [16] Pandas In 10 Minutes || Wes McKinney
-https://www.youtube.com/watch?v=1MGCD8SQp3k
-
-- [17] Good description of quartiles on Seaborn plots
-https://towardsdatascience.com/analyze-the-data-through-data-visualization-using-seaborn-255e1cd3948e
-
-**Regression:**
-
-- [18] Ordinary Least Squares in statsmodels
-https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
-
-- [19] Generalized Linear Models in scikit-learn
-https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
-
-- [20] How to run Linear regression in Python scikit-Learn
-https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
-
-- [21] A beginner’s guide to Linear Regression in Python with Scikit-Learn
-https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
-
-- [22] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
-https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
-
-- [23] Python and R Tips To Learn Data Science: Pearson and Spearman Correlation in Python
-https://cmdlinetips.com/2019/08/how-to-compute-pearson-and-spearman-correlation-in-python/
-
-**Classification:**
-
-- [24] K-nearest Neighbors (KNN) Classification Model
-https://www.ritchieng.com/machine-learning-k-nearest-neighbors-knn/
-
-- [25] Supervised and Unsupervised Machine Learning Algorithms
-https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/
-
-- [26] Cross-Validation
-https://www.ritchieng.com/machine-learning-cross-validation/
-
-**References directly relating to Tips:**
-
-- [27] Tips data set in PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
-https://devarea.com/python-machine-learning-example-linear-regression/#.XbbfgOj7Q2w
-
-- [28] Tips analysis using Seaborn: Visualizing statistical relationships
-https://seaborn.pydata.org/tutorial/relational.html#relational-tutorial
-
-- [29] Tips analysis using Seaborn: Plotting with categorical data
-https://seaborn.pydata.org/tutorial/categorical.html#categorical-tutorial
-
-- [30] Tips analysis using Seaborn: Visualizing linear relationships
-https://seaborn.pydata.org/tutorial/regression.html#regression-tutorial
-
-- [31] Tips analysis using Seaborn: Building structured multi-plot grids
-https://seaborn.pydata.org/tutorial/axis_grids.html#grid-tutorial
-
-- [32] STAT 503 Case Study 1: Restaurant Tipping (Author unknown)
-https://dicook.public.iastate.edu/stat503/05/cs-tips2.pdf
-
-- [33] Interactive analytics and predictions on Restaurant tips
-https://medium.com/@valentinaalto/interactive-analytics-and-predictions-on-restaurant-tips-94f21f537de8
-
-- [34] Seaborn again: Python Data Visualisation using Seaborn 
-https://grindsquare.co.za/python-data-visualisation-using-seaborn/
-
-- [35] Excerpt from the Python Data Science Handbook by Jake VanderPlas; Jupyter notebooks are available on GitHub.
-https://jakevdp.github.io/PythonDataScienceHandbook/04.14-visualization-with-seaborn.html
-
-- [36] Interactive analytics and predictions on Restaurant tips
-https://datasciencechalktalk.com/2019/11/03/interactive-analytics-and-predictions-on-restaurant-tips/
-
-- [37] atlassian.com: .gitignore
-https://www.atlassian.com/git/tutorials/saving-changes/gitignore#personal-git-ignore-rules
